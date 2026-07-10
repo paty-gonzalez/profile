@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patricia González | Full Stack Developer & UX Designer</title>
+    <meta name="description" content="Portafolio profesional de Patricia González. Full Stack Developer, UX Designer y docente con más de 10 años de experiencia creando soluciones centradas en el usuario.">
+    <meta name="author" content="Patricia González">
+    
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="Patricia González | Portfolio">
+    <meta property="og:description" content="Full Stack Developer, UX Designer y docente con más de 10 años de experiencia.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#FAFAFA',
+                        card: '#FFFFFF',
+                        primary: '#6D5EF8',
+                        secondary: '#ECE8FF',
+                        text: '#111111',
+                        gray: '#707070',
+                        // Sustitución de grises para que todos los bordes sean morados
+                        'gray-100': 'rgba(109, 94, 248, 0.15)',
+                        'gray-200': 'rgba(109, 94, 248, 0.25)',
+                        'gray-300': 'rgba(109, 94, 248, 0.4)',
+                        // Dark mode equivalencies
+                        'dark-bg': '#0A0A0A',
+                        'dark-card': '#141414',
+                        'dark-text': '#F5F5F5',
+                        'dark-gray': '#A1A1AA',
+                        'dark-border': 'rgba(109, 94, 248, 0.3)' // Borde morado para modo oscuro
+                    },
+                    transitionDuration: {
+                        '300': '300ms',
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 20px rgba(109, 94, 248, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS para utilidades y animaciones -->
+    <style>
+        /* Animaciones Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 300ms ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus-visible {
+            outline: 2px solid #6D5EF8;
+            outline-offset: 2px;
+        }
+
+        /* Glassmorphism para el Navbar */
+        .glass-nav {
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-nav {
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        /* Hide scrollbar for clean UI but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4D4D8;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #3F3F46;
+        }
+    </style>
+</head>
+<body class="bg-background text-text dark:bg-dark-bg dark:text-dark-text transition-colors duration-300 antialiased selection:bg-primary selection:text-white">
+
+    <!-- Navbar Sticky -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="font-bold text-xl tracking-tight hover:text-primary transition-colors duration-300" aria-label="Ir al inicio">
+                    PG<span class="text-primary">.</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium text-gray hover:text-text dark:text-dark-gray dark:hover:text-dark-text transition-colors duration-300">Sobre mí</a>
+                    <a href="#experience" class="text-sm font-medium text-gray hover:text-text dark:text-dark-gray dark:hover:text-dark-text transition-colors duration-300">Experiencia</a>
+                    <a href="#skills" class="text-sm font-medium text-gray hover:text-text dark:text-dark-gray dark:hover:text-dark-text transition-colors duration-300">Habilidades</a>
+                    <a href="#teaching" class="text-sm font-medium text-gray hover:text-text dark:text-dark-gray dark:hover:text-dark-text transition-colors duration-300">Docencia</a>
+                    <a href="#projects" class="text-sm font-medium text-gray hover:text-text dark:text-dark-gray dark:hover:text-dark-text transition-colors duration-300">Proyectos</a>
+                    
+                    <div class="flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200 dark:border-dark-border">
+                        <!-- Dark Mode Toggle -->
+                        <button id="theme-toggle" type="button" class="text-gray hover:text-primary dark:text-dark-gray dark:hover:text-primary transition-colors duration-300" aria-label="Alternar modo oscuro">
+                            <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                            <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        </button>
+                        <a href="#contact" class="px-4 py-2 bg-text text-background dark:bg-dark-text dark:text-dark-bg rounded-lg text-sm font-medium hover:bg-primary dark:hover:bg-primary hover:text-white dark:hover:text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                            Contáctame
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" type="button" class="text-gray dark:text-dark-gray" aria-label="Alternar modo oscuro">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-text dark:text-dark-text focus:outline-none" aria-label="Abrir menú">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-background dark:bg-dark-bg border-b border-gray-200 dark:border-dark-border absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-text dark:text-dark-text hover:bg-secondary dark:hover:bg-dark-border transition-colors">Sobre mí</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-text dark:text-dark-text hover:bg-secondary dark:hover:bg-dark-border transition-colors">Experiencia</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-text dark:text-dark-text hover:bg-secondary dark:hover:bg-dark-border transition-colors">Habilidades</a>
+                <a href="#teaching" class="block px-3 py-2 rounded-md text-base font-medium text-text dark:text-dark-text hover:bg-secondary dark:hover:bg-dark-border transition-colors">Docencia</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-text dark:text-dark-text hover:bg-secondary dark:hover:bg-dark-border transition-colors">Proyectos</a>
+                <a href="#contact" class="block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-primary text-white hover:bg-opacity-90 transition-colors">Contáctame</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center relative pt-20 overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-1/4 left-10 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob dark:hidden"></div>
+            <div class="absolute top-1/3 right-10 w-72 h-72 bg-primary opacity-10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="reveal">
+                        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-text dark:text-dark-text leading-tight">
+                            Hola, soy <br/>
+                            <span class="text-primary">Patricia González</span>
+                        </h1>
+                        <h2 class="text-2xl md:text-3xl text-gray dark:text-dark-gray font-medium mb-6">
+                            Full Stack Developer & UX Designer
+                        </h2>
+                        <p class="text-lg text-gray dark:text-dark-gray mb-10 max-w-lg leading-relaxed">
+                            Transformo ideas complejas en experiencias digitales intuitivas y eficientes. Pasión por el código limpio, el diseño centrado en el usuario y la docencia.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#projects" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                Ver Proyectos
+                            </a>
+                            <a href="#" class="inline-flex items-center justify-center px-6 py-3 border border-gray-200 dark:border-dark-border text-base font-medium rounded-lg text-text dark:text-dark-text bg-card dark:bg-dark-card hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                                <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+                                Descargar CV
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Modern Illustration/Code Window -->
+                    <div class="hidden lg:block reveal">
+                        <div class="relative w-full max-w-lg mx-auto">
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary to-purple-500 transform skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl opacity-20 dark:opacity-40"></div>
+                            <div class="relative bg-card dark:bg-dark-card shadow-soft dark:shadow-none dark:border dark:border-dark-border rounded-xl overflow-hidden">
+                                <div class="flex items-center px-4 py-3 border-b border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-black">
+                                    <div class="flex space-x-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                    </div>
+                                    <div class="mx-auto text-xs text-gray dark:text-dark-gray font-mono">portfolio.ts</div>
+                                </div>
+                                <div class="p-6 font-mono text-sm text-gray dark:text-dark-gray leading-relaxed overflow-x-auto">
+<pre><code><span class="text-purple-500">const</span> developer = {
+  name: <span class="text-green-500">'Patricia González'</span>,
+  roles: [<span class="text-green-500">'Full Stack'</span>, <span class="text-green-500">'UX Designer'</span>],
+  experience: <span class="text-orange-500">10</span>,
+  passion: <span class="text-green-500">'Docencia y Desarrollo'</span>
+};
+
+<span class="text-purple-500">function</span> <span class="text-blue-500">createImpact</span>(dev) {
+  <span class="text-purple-500">return</span> dev.skills.map(skill => 
+    <span class="text-blue-500">innovate</span>(skill)
+  );
+}
+
+<span class="text-gray-400">// ¿Listo para construir algo increíble?</span>
+<span class="text-blue-500">developer</span>.<span class="text-blue-500">contact</span>();</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+                <span class="text-xs text-gray dark:text-dark-gray mb-2 font-medium tracking-widest uppercase">Deslizar</span>
+                <i data-lucide="arrow-down" class="w-4 h-4 text-gray dark:text-dark-gray"></i>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-card dark:bg-dark-card transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div class="relative reveal">
+                        <!-- Image placeholder using realistic Unsplash API -->
+                        <div class="aspect-w-3 aspect-h-4 rounded-2xl overflow-hidden shadow-soft dark:border dark:border-dark-border">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Patricia González - Profesional" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700" loading="lazy">
+                        </div>
+                        <!-- Experience Badge -->
+                        <div class="absolute -bottom-6 -right-6 bg-background dark:bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-100 dark:border-dark-border hidden sm:block">
+                            <div class="text-4xl font-bold text-primary mb-1">10+</div>
+                            <div class="text-sm font-medium text-gray dark:text-dark-gray">Años de<br>Experiencia</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="h-px w-8 bg-primary"></div>
+                            <h2 class="text-sm font-bold text-primary uppercase tracking-widest">Sobre mí</h2>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-6 text-text dark:text-dark-text">Diseñando y desarrollando el futuro web.</h3>
+                        
+                        <div class="space-y-4 text-gray dark:text-dark-gray leading-relaxed text-lg">
+                            <p>
+                                Soy una profesional multidisciplinaria con <strong>más de 10 años de experiencia</strong> en la industria tecnológica. Mi enfoque único combina el rigor técnico del <strong>Desarrollo Web</strong> con la empatía y creatividad del <strong>UX Design</strong>, permitiéndome construir productos que no solo funcionan a la perfección, sino que los usuarios aman utilizar.
+                            </p>
+                            <p>
+                                A lo largo de mi carrera, he liderado y participado en proyectos escalables tanto en entornos web como <strong>Mobile</strong>, asegurando siempre las mejores prácticas de arquitectura, accesibilidad y rendimiento. Mi filosofía es que el buen código debe ser invisible; la experiencia del usuario lo es todo.
+                            </p>
+                            <p>
+                                Además de mi rol como desarrolladora, encuentro una profunda satisfacción en la <strong>Docencia</strong>. Compartir conocimientos, guiar a las nuevas generaciones de desarrolladores e impartir metodologías basadas en proyectos reales es mi forma de retribuir a la comunidad tecnológica.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-24 relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-sm font-bold text-primary uppercase tracking-widest mb-2">Trayectoria</h2>
+                    <h3 class="text-3xl font-bold text-text dark:text-dark-text">Experiencia Profesional</h3>
+                </div>
+
+                <div class="relative border-l border-gray-200 dark:border-dark-border ml-3 md:ml-0 md:pl-0">
+                    <!-- Timeline Item 1 -->
+                    <div class="mb-12 relative pl-8 md:pl-0 reveal group">
+                        <div class="md:flex items-center justify-between">
+                            <div class="md:w-1/2 md:pr-12 md:text-right hidden md:block">
+                                <span class="text-primary font-medium text-sm bg-secondary dark:bg-dark-border px-3 py-1 rounded-full">2025 - Presente</span>
+                            </div>
+                            <!-- Dot -->
+                            <div class="absolute left-[-5px] md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-background dark:bg-dark-bg border-2 border-primary group-hover:scale-150 transition-transform duration-300 shadow-glow"></div>
+                            
+                            <div class="md:w-1/2 md:pl-12">
+                                <span class="text-primary font-medium text-sm bg-secondary dark:bg-dark-border px-3 py-1 rounded-full md:hidden mb-3 inline-block">2025 - Presente</span>
+                                <div class="bg-card dark:bg-dark-card p-6 rounded-xl shadow-soft dark:border dark:border-dark-border hover:shadow-md transition-shadow duration-300">
+                                    <h4 class="text-xl font-bold text-text dark:text-dark-text">Profesora Universitaria</h4>
+                                    <p class="text-gray dark:text-dark-gray mt-2">Impartiendo materias de ingeniería de software avanzadas, bases de datos y metodologías ágiles, enfocándome en el aprendizaje basado en proyectos (PBL).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="mb-12 relative pl-8 md:pl-0 reveal group">
+                        <div class="md:flex items-center justify-between">
+                            <div class="md:w-1/2 md:pr-12 md:text-right">
+                                <div class="bg-card dark:bg-dark-card p-6 rounded-xl shadow-soft dark:border dark:border-dark-border hover:shadow-md transition-shadow duration-300">
+                                    <h4 class="text-xl font-bold text-text dark:text-dark-text">Full Stack Developer</h4>
+                                    <h5 class="text-md font-medium text-primary mb-2">Sistema CNG</h5>
+                                    <p class="text-gray dark:text-dark-gray">Lideré el desarrollo de la plataforma core utilizando Angular y Node.js. Implementé metodologías de diseño atómico y reduje la deuda técnica en un 40%.</p>
+                                </div>
+                            </div>
+                            <!-- Dot -->
+                            <div class="absolute left-[-5px] md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-background dark:bg-dark-bg border-2 border-gray-300 dark:border-dark-gray group-hover:border-primary transition-colors duration-300"></div>
+                            
+                            <div class="md:w-1/2 md:pl-12 hidden md:block">
+                                <span class="text-gray dark:text-dark-gray font-medium text-sm">2020 - 2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="relative pl-8 md:pl-0 reveal group">
+                        <div class="md:flex items-center justify-between">
+                            <div class="md:w-1/2 md:pr-12 md:text-right hidden md:block">
+                                <span class="text-gray dark:text-dark-gray font-medium text-sm">2016 - 2020</span>
+                            </div>
+                            <!-- Dot -->
+                            <div class="absolute left-[-5px] md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-background dark:bg-dark-bg border-2 border-gray-300 dark:border-dark-gray group-hover:border-primary transition-colors duration-300"></div>
+                            
+                            <div class="md:w-1/2 md:pl-12">
+                                <span class="text-gray dark:text-dark-gray font-medium text-sm md:hidden mb-3 inline-block">2016 - 2020</span>
+                                <div class="bg-card dark:bg-dark-card p-6 rounded-xl shadow-soft dark:border dark:border-dark-border hover:shadow-md transition-shadow duration-300">
+                                    <h4 class="text-xl font-bold text-text dark:text-dark-text">Web Developer</h4>
+                                    <h5 class="text-md font-medium text-primary mb-2">SICE</h5>
+                                    <p class="text-gray dark:text-dark-gray">Desarrollo de interfaces de usuario responsivas y mantenimiento de sistemas legacy. Introducción de buenas prácticas de control de versiones y accesibilidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 bg-card dark:bg-dark-card transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-sm font-bold text-primary uppercase tracking-widest mb-2">Stack Tecnológico</h2>
+                    <h3 class="text-3xl font-bold text-text dark:text-dark-text">Habilidades y Herramientas</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Frontend -->
+                    <div class="p-6 rounded-2xl bg-background dark:bg-dark-bg border border-gray-100 dark:border-dark-border hover:shadow-lg transition-shadow duration-300 reveal">
+                        <div class="w-12 h-12 rounded-xl bg-secondary dark:bg-dark-border text-primary flex items-center justify-center mb-6">
+                            <i data-lucide="layout" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-text dark:text-dark-text mb-4">Frontend</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">HTML5</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">CSS3</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">JavaScript</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">TypeScript</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Angular</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Tailwind CSS</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend -->
+                    <div class="p-6 rounded-2xl bg-background dark:bg-dark-bg border border-gray-100 dark:border-dark-border hover:shadow-lg transition-shadow duration-300 reveal" style="transition-delay: 100ms;">
+                        <div class="w-12 h-12 rounded-xl bg-secondary dark:bg-dark-border text-primary flex items-center justify-center mb-6">
+                            <i data-lucide="server" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-text dark:text-dark-text mb-4">Backend</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Node.js</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Express</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Python</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">SQL</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">MongoDB</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">RESTful APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- UX/UI -->
+                    <div class="p-6 rounded-2xl bg-background dark:bg-dark-bg border border-gray-100 dark:border-dark-border hover:shadow-lg transition-shadow duration-300 reveal" style="transition-delay: 200ms;">
+                        <div class="w-12 h-12 rounded-xl bg-secondary dark:bg-dark-border text-primary flex items-center justify-center mb-6">
+                            <i data-lucide="figma" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-text dark:text-dark-text mb-4">Diseño UX/UI</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Figma</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Wireframing</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Prototipado</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Sistemas de Diseño</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Investigación UX</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">WCAG AA</span>
+                        </div>
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="p-6 rounded-2xl bg-background dark:bg-dark-bg border border-gray-100 dark:border-dark-border hover:shadow-lg transition-shadow duration-300 reveal" style="transition-delay: 300ms;">
+                        <div class="w-12 h-12 rounded-xl bg-secondary dark:bg-dark-border text-primary flex items-center justify-center mb-6">
+                            <i data-lucide="smartphone" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-text dark:text-dark-text mb-4">Mobile (Móvil)</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">React Native</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Ionic</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Diseño Responsivo</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">Mobile First</span>
+                            <span class="px-3 py-1 text-sm font-medium bg-card dark:bg-dark-card text-text dark:text-dark-text rounded-lg border border-gray-200 dark:border-dark-border">PWA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Section -->
+        <section id="teaching" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="lg:w-1/3 reveal">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="h-px w-8 bg-primary"></div>
+                            <h2 class="text-sm font-bold text-primary uppercase tracking-widest">Docencia</h2>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-6 text-text dark:text-dark-text">Formando a la próxima generación</h3>
+                        <p class="text-gray dark:text-dark-gray text-lg mb-8 leading-relaxed">
+                            Mi filosofía educativa se centra en el <strong>Project-Based Learning (PBL)</strong>. Creo firmemente que la mejor manera de dominar la tecnología es construyendo soluciones reales para problemas reales, promoviendo el pensamiento crítico, la colaboración y las buenas prácticas desde el primer día de clases.
+                        </p>
+                    </div>
+                    
+                    <div class="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                        <!-- Subject Cards -->
+                        <div class="bg-card dark:bg-dark-card p-6 rounded-xl border border-gray-100 dark:border-dark-border shadow-soft hover:-translate-y-1 hover:shadow-md transition-all duration-300 reveal">
+                            <i data-lucide="code-2" class="w-8 h-8 text-primary mb-4"></i>
+                            <h4 class="text-xl font-bold text-text dark:text-dark-text mb-2">Programación</h4>
+                            <p class="text-sm text-gray dark:text-dark-gray">Lógica de programación, algoritmos, estructuras de datos y paradigmas orientados a objetos y funcionales.</p>
+                        </div>
+                        <div class="bg-card dark:bg-dark-card p-6 rounded-xl border border-gray-100 dark:border-dark-border shadow-soft hover:-translate-y-1 hover:shadow-md transition-all duration-300 reveal" style="transition-delay: 100ms;">
+                            <i data-lucide="database" class="w-8 h-8 text-primary mb-4"></i>
+                            <h4 class="text-xl font-bold text-text dark:text-dark-text mb-2">Bases de Datos</h4>
+                            <p class="text-sm text-gray dark:text-dark-gray">Diseño relacional y NoSQL, optimización de consultas, normalización y arquitectura de datos.</p>
+                        </div>
+                        <div class="bg-card dark:bg-dark-card p-6 rounded-xl border border-gray-100 dark:border-dark-border shadow-soft hover:-translate-y-1 hover:shadow-md transition-all duration-300 reveal" style="transition-delay: 200ms;">
+                            <i data-lucide="shield-check" class="w-8 h-8 text-primary mb-4"></i>
+                            <h4 class="text-xl font-bold text-text dark:text-dark-text mb-2">Ciberseguridad y Hacking Ético</h4>
+                            <p class="text-sm text-gray dark:text-dark-gray">Seguridad en aplicaciones web (OWASP), criptografía básica, análisis de vulnerabilidades y robustecimiento (hardening) de sistemas.</p>
+                        </div>
+                        <div class="bg-card dark:bg-dark-card p-6 rounded-xl border border-gray-100 dark:border-dark-border shadow-soft hover:-translate-y-1 hover:shadow-md transition-all duration-300 reveal" style="transition-delay: 300ms;">
+                            <i data-lucide="bar-chart-3" class="w-8 h-8 text-primary mb-4"></i>
+                            <h4 class="text-xl font-bold text-text dark:text-dark-text mb-2">Ciencia de Datos</h4>
+                            <p class="text-sm text-gray dark:text-dark-gray">Análisis exploratorio, visualización de datos con Python, y fundamentos de machine learning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 bg-card dark:bg-dark-card transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-sm font-bold text-primary uppercase tracking-widest mb-2">Portafolio</h2>
+                    <h3 class="text-3xl font-bold text-text dark:text-dark-text">Proyectos Destacados</h3>
+                </div>
+
+                <div class="flex flex-col items-center justify-center py-20 px-4 bg-background dark:bg-dark-bg rounded-2xl border border-gray-200 dark:border-dark-border shadow-soft reveal">
+                    <div class="w-20 h-20 bg-secondary dark:bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="hammer" class="w-10 h-10 text-primary animate-pulse"></i>
+                    </div>
+                    <h4 class="text-2xl md:text-3xl font-bold text-text dark:text-dark-text mb-4 text-center">¡Proyectos en construcción!</h4>
+                    <p class="text-gray dark:text-dark-gray text-center max-w-lg mb-8 leading-relaxed">
+                        Actualmente estoy afinando los detalles de mis últimos casos de estudio y proyectos. ¡Vuelve pronto para ver el portafolio actualizado!
+                    </p>
+                    <div class="flex items-center space-x-2 text-primary font-medium">
+                        <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+                        <span>Trabajando en ello...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-card dark:bg-dark-card rounded-3xl p-8 md:p-16 border border-gray-100 dark:border-dark-border shadow-soft reveal">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        <!-- Contact Info -->
+                        <div>
+                            <h2 class="text-4xl font-bold text-text dark:text-dark-text mb-6">Hablemos de tu próximo proyecto.</h2>
+                            <p class="text-gray dark:text-dark-gray mb-10 text-lg">
+                                Ya sea para una oportunidad laboral, un proyecto freelance o una consulta sobre docencia, estoy disponible para conversar.
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <a href="mailto:hola@patriciagonzalez.com" class="flex items-center text-text dark:text-dark-text hover:text-primary dark:hover:text-primary transition-colors duration-300 group">
+                                    <div class="w-12 h-12 bg-secondary dark:bg-dark-border rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                        <i data-lucide="mail" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-medium">hola&#64;patriciagonzalez.com</span>
+                                </a>
+                                <a href="#" class="flex items-center text-text dark:text-dark-text hover:text-primary dark:hover:text-primary transition-colors duration-300 group">
+                                    <div class="w-12 h-12 bg-secondary dark:bg-dark-border rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-medium">linkedin.com/in/patriciagonzalez</span>
+                                </a>
+                                <a href="#" class="flex items-center text-text dark:text-dark-text hover:text-primary dark:hover:text-primary transition-colors duration-300 group">
+                                    <div class="w-12 h-12 bg-secondary dark:bg-dark-border rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                        <i data-lucide="github" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-medium">github.com/patriciagonzalez</span>
+                                </a>
+                            </div>
+
+                            <div class="mt-12 pt-10 border-t border-gray-100 dark:border-dark-border">
+                                <a href="#" class="inline-flex items-center justify-center px-6 py-3 border border-gray-200 dark:border-dark-border text-base font-medium rounded-lg text-text dark:text-dark-text hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary transition-all duration-300">
+                                    <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                                    Descargar CV Completo
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Visual Form (No Backend) -->
+                        <div class="bg-background dark:bg-dark-bg p-8 rounded-2xl border border-gray-100 dark:border-dark-border">
+                            <form onsubmit="event.preventDefault();" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-text dark:text-dark-text mb-2">Nombre completo</label>
+                                    <input type="text" id="name" class="w-full px-4 py-3 bg-card dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow duration-300 dark:text-white" placeholder="Ej. Juan Pérez">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-text dark:text-dark-text mb-2">Correo electrónico</label>
+                                    <input type="email" id="email" class="w-full px-4 py-3 bg-card dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow duration-300 dark:text-white" placeholder="juan@ejemplo.com">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-text dark:text-dark-text mb-2">Mensaje</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-3 bg-card dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow duration-300 resize-none dark:text-white" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+                                </div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary hover:-translate-y-0.5 transition-all duration-300">
+                                    Enviar Mensaje
+                                </button>
+                                <p class="text-xs text-center text-gray dark:text-dark-gray mt-4">
+                                    * Formulario de demostración. Para contacto real, utiliza el email directo.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card dark:bg-dark-card border-t border-gray-200 dark:border-dark-border pt-12 pb-8 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <span class="font-bold text-xl tracking-tight text-text dark:text-dark-text">PG<span class="text-primary">.</span></span>
+                    <p class="text-sm text-gray dark:text-dark-gray mt-2">Diseñando experiencias, construyendo realidades.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray hover:text-primary dark:text-dark-gray dark:hover:text-primary transition-colors duration-300" aria-label="LinkedIn">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray hover:text-primary dark:text-dark-gray dark:hover:text-primary transition-colors duration-300" aria-label="GitHub">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray hover:text-primary dark:text-dark-gray dark:hover:text-primary transition-colors duration-300" aria-label="Twitter">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 dark:border-dark-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray dark:text-dark-gray">
+                    &copy; <span id="year"></span> Patricia González. Todos los derechos reservados.
+                </p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <span class="text-sm text-gray dark:text-dark-gray">Hecho con <i data-lucide="heart" class="w-4 h-4 inline text-primary"></i> y HTML nativo.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 p-3 rounded-full bg-primary text-white shadow-lg opacity-0 translate-y-10 pointer-events-none transition-all duration-300 hover:bg-opacity-90 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary z-50" aria-label="Volver arriba">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Lucide Icons Script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // 1. Manejo del Año Dinámico en Footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 2. Modo Oscuro (Lectura, Toggle y Persistencia)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const htmlElement = document.documentElement;
+
+        // Comprobar preferencia previa o preferencia del sistema
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobileBtn.addEventListener('click', toggleTheme);
+
+        // 3. Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar menú al clickear enlace
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 4. Navbar Sticky Effects & Back to Top Button
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            // Navbar effect
+            if (window.scrollY > 20) {
+                navbar.classList.add('glass-nav', 'shadow-sm');
+                navbar.classList.remove('border-transparent');
+            } else {
+                navbar.classList.remove('glass-nav', 'shadow-sm');
+                navbar.classList.add('border-transparent');
+            }
+
+            // Back to top effect
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 5. Scroll Reveal Animations (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOptions = {
+            threshold: 0.15, // Activa cuando el 15% del elemento es visible
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Opcional: dejar de observar una vez revelado
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+
+    </script>
+</body>
+</html>
